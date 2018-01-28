@@ -1,0 +1,43 @@
+Basic Secure Protocol
+
+Packet Format:
+
+Length    | Varint     | Length of packet data + length of the packet ID
+Packet ID | Varint     | 
+Data      | Byte array | the actual data, changes depends on what you doing
+
+Stage one:
+	Authentication
+
+	- Step 1
+		we ask for basic server information
+		
+		response:
+		
+		salt 	    | bignum | the salt used for the SRP (0 if no password) 
+		online 	    | bool   | do we authenticate against the central server or do we use local user management	
+		
+	- Step 2
+		Start server authentication (SRP). Session key used as first encryption layer, this layer won't exist on servers without password.
+
+	- Step 3
+
+		if the server is offline this is the packet		
+	
+		register? | bool | will we register now?
+		username  | string | the username
+		verified  | bignum | the verified (only if register)
+		salt 	  | bignum | the salt (only if register)		
+
+		if the server is online we will first do SRP with the online server, which will return for us a special temp token. This token will be sent to the server we want to connect and the server will check with the central server if the token is valid, if it is the server will the central server will send the shared encryption key generated from the SRP between the client and central server.
+
+	- Step 4 we have now a shared key which can be used to encrypt all the communications.
+
+	now we are ready to switch to the command stage
+
+
+Stage two, commands
+
+	now this is very simple, we send an ID with data, the server responds, can also be the opposite as the server sends ID with data and we respond.
+
+	this should have at least one encryption layer now.	
