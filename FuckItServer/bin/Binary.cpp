@@ -93,3 +93,51 @@ bool read_string(const unsigned char *ptr, char *out, int out_len, int *olen) {
 
 	return true;
 }
+
+int write_varint(unsigned char *ptr, unsigned int val) {
+	if (!val) {
+		*ptr = 0;
+		return 1;
+	}
+
+	int n = 0;
+	while (val) {
+		unsigned char p = val & 0x7F;
+		val >>= 7;
+
+		if (val)
+			p |= 0x80;
+		ptr[n++] = p;
+	}
+	return n;
+}
+
+int write_varlong(unsigned char *ptr, unsigned long long val) {
+	if (!val) {
+		*ptr = 0;
+		return 1;
+	}
+
+	int n = 0;
+	while (val) {
+		unsigned char p = val & 0x7F;
+		val >>= 7;
+
+		if (val) {
+			p |= 0x80;
+		}
+		ptr[n++] = p;
+	}
+	return n;
+}
+
+int write_string(unsigned char *ptr, const char *str) {
+	int n = 0;
+	n += write_varint(ptr, (unsigned int)std::strlen(str));
+
+	while (*str) {
+		ptr[n++] = *str++;
+	}
+
+	return n;
+}

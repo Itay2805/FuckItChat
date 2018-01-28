@@ -1,12 +1,17 @@
 #pragma once
 
 #include <cstdint>
+#include <memory>
 
 int read_varint(const void *ptr, int *olen = nullptr);
 
 long long read_varlong(const void *ptr, int *olen = nullptr);
 
 bool read_string(const unsigned char *ptr, char *out, int out_len, int *olen = nullptr);
+
+int got_varint(const void *ptr, int len);
+
+int varint_size(int num);
 
 inline bool read_bool(const uint8_t* ptr) {
 	return *ptr ? true : false;
@@ -78,3 +83,92 @@ inline double read_double_be(const uint8_t* ptr) {
 inline double read_double_le(const uint8_t* ptr) {
 	return *((const double *)ptr);
 }
+
+inline size_t write_bool(uint8_t* ptr, bool val) {
+	*ptr = val ? 1 : 0; 
+	return 1;
+}
+
+inline size_t write_byte(uint8_t* ptr, uint8_t val) {
+	*ptr = val; 
+	return 1;
+}
+
+inline size_t write_short_be(uint8_t* ptr, uint16_t val) {
+	ptr[0] = val >> 8;
+	ptr[1] = val & 0xFF;
+	return 2;
+}
+
+inline size_t write_short_le(uint8_t* ptr, uint16_t val) {
+	std::memcpy(ptr, &val, 2);
+	return 2;
+}
+
+inline size_t write_int_be(uint8_t* ptr, uint32_t val) {
+	ptr[0] = val >> 24;
+	ptr[1] = (val >> 16) & 0xFF;
+	ptr[2] = (val >> 8) & 0xFF;
+	ptr[3] = val & 0xFF;
+	return 4;
+}
+
+inline size_t write_int_le(uint8_t* ptr, uint32_t val) {
+	std::memcpy(ptr, &val, 4);
+	return 4;
+}
+
+inline size_t write_long_be(uint8_t* ptr, uint64_t val) {
+	ptr[0] = val >> 56;
+	ptr[1] = (val >> 48) & 0xFF;
+	ptr[2] = (val >> 40) & 0xFF;
+	ptr[3] = (val >> 32) & 0xFF;
+	ptr[4] = (val >> 24) & 0xFF;
+	ptr[5] = (val >> 16) & 0xFF;
+	ptr[6] = (val >> 8) & 0xFF;
+	ptr[7] = val & 0xFF;
+	return 8;
+}
+
+inline size_t write_long_le(uint8_t* ptr, uint64_t val) {
+	std::memcpy(ptr, &val, 8);
+	return 8;
+}
+
+inline size_t write_float_be(uint8_t* ptr, float f) {
+	uint32_t val = *((uint32_t*)&f);
+	ptr[0] = val >> 24;
+	ptr[1] = (val >> 16) & 0xFF;
+	ptr[2] = (val >> 8) & 0xFF;
+	ptr[3] = val & 0xFF;
+	return 4;
+}
+
+inline size_t write_float_le(uint8_t* ptr, float val) {
+	std::memcpy(ptr, &val, 4);
+	return 4;
+}
+
+inline size_t write_double_be(uint8_t* ptr, double f) {
+	uint64_t val = *((uint64_t*)&f);
+	ptr[0] = val >> 56;
+	ptr[1] = (val >> 48) & 0xFF;
+	ptr[2] = (val >> 40) & 0xFF;
+	ptr[3] = (val >> 32) & 0xFF;
+	ptr[4] = (val >> 24) & 0xFF;
+	ptr[5] = (val >> 16) & 0xFF;
+	ptr[6] = (val >> 8) & 0xFF;
+	ptr[7] = val & 0xFF;
+	return 8;
+}
+
+inline size_t write_double_le(uint8_t* ptr, double val) {
+	std::memcpy(ptr, &val, 8);
+	return 8;
+}
+
+int write_varint(unsigned char *ptr, unsigned int val);
+
+int write_varlong(unsigned char *ptr, unsigned long long val);
+
+int write_string(unsigned char *ptr, const char *str);

@@ -45,6 +45,15 @@
     <ClCompile Include="GeneratedFiles\qrc_FuckItServer.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="protocol\PacketReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bin\Binary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\Packet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="FuckItServer.h">
@@ -60,6 +69,15 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_FuckItServer.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\Packet.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\PacketReader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bin\Binary.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

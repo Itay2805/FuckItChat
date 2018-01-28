@@ -69,6 +69,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bin\Binary.cpp" />
     <ClCompile Include="FuckItServer.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_FuckItServer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -83,6 +84,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="protocol\Packet.cpp" />
+    <ClCompile Include="protocol\PacketReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="FuckItServer.h">
@@ -109,7 +112,10 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bin\Binary.h" />
     <ClInclude Include="GeneratedFiles\ui_FuckItServer.h" />
+    <ClInclude Include="protocol\Packet.hpp" />
+    <ClInclude Include="protocol\PacketReader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="FuckItServer.qrc">
