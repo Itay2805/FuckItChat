@@ -4,12 +4,14 @@ FuckItChat::FuckItChat(QWidget *parent)
 	: QMainWindow(parent) {
 	ui.setupUi(this);
 
+
+	connect(ui.actionConnect, &QAction::triggered, this, &FuckItChat::Connect);
 }
 
 void FuckItChat::resizeEvent(QResizeEvent *event) {
 	QSize size = event->size();
 	float width = (float)size.width();
-	float height = (float)size.height();
+	float height = (float)size.height() - menuBar()->size().height();
 
 	float wSpacing = width / 300.f;
 	float hSpacing = height / 300.f;
@@ -38,4 +40,13 @@ void FuckItChat::resizeEvent(QResizeEvent *event) {
 
 	ui.btnOkie->resize(bow, boh);
 	ui.btnOkie->move(box, boy);
+}
+
+void FuckItChat::Connect() {
+	ConnectDialog dialog(this);
+	if (dialog.exec() == QDialog::Accepted) {
+		client = new Client(this);
+		client->Connect(dialog.GetIp(), dialog.GetPort(), dialog.GetPassword());
+	}
+
 }
