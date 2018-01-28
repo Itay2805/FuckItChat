@@ -1,5 +1,8 @@
 # C++ objects and libs
-
+.vs/
+x64/
+FuckItChat/x64/
+FuckItServer/x64/
 *.slo
 *.lo
 *.o
