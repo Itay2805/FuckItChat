@@ -12,9 +12,9 @@ public:
 	~ConnectDialog();
 
 
-	inline QString GetIp() { return ui.ip->toPlainText(); }
-	inline QString GetPort() { return ui.port->toPlainText(); }
-	inline QString GetPassword() { return ui.password->toPlainText(); }
+	inline QString GetIp() { return ui.ip->text(); }
+	inline QString GetPort() { return ui.port->text(); }
+	inline QString GetPassword() { return ui.password->text(); }
 
 private slots:
 	void Connect();
