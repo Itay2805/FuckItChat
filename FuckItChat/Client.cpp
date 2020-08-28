@@ -21,12 +21,16 @@ Client::~Client() {
 }
 
 void Client::Connect(QString ip, QString port, QString password) {
+	this->ip = ip;
+	this->port = port;
+	this->password = password;
 	QHostAddress addr;
 	addr.setAddress(ip);
 
 	socket->connectToHost(addr, port.toInt());
-
-
+	if (socket->waitForConnected(5000)) {
+		QMessageBox::information(parent, "Connected", "connected");
+	}
 }
 
 void Client::Disconnect() {

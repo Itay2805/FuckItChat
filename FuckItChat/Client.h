@@ -12,6 +12,10 @@ private:
 
 	QWidget* parent;
 
+	QString ip;
+	QString port;
+	QString password;
+
 public:
 	Client(QWidget* parent);
 	~Client();
