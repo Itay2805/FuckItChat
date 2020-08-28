@@ -23,6 +23,8 @@ void Server::NewConnection() {
 
 	QMessageBox::information(parent, "Recieved Something!", "asd");
 
+	// store the socket for the client or whatever
+	// and only close it when the client disconnects
 	socket->close();
 }
 

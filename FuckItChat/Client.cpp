@@ -22,10 +22,13 @@ Client::~Client() {
 
 void Client::Connect(QString ip, QString port, QString password) {
 	this->ip = ip;
+	if (this->ip == "localhost")
+		this->ip = "127.0.0.1";
+
 	this->port = port;
 	this->password = password;
 	QHostAddress addr;
-	addr.setAddress(ip);
+	addr.setAddress(this->ip);
 
 	socket->connectToHost(addr, port.toInt());
 	if (socket->waitForConnected(5000)) {
